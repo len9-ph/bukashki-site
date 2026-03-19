@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Container>
+
+title Bug Collection Site - C4 Level 2 Container Diagram
+
+Person(user, "User", "Uses the system through the web interface")
+
+System_Boundary(system, "Букашки сайт") {
+    Container(web, "Web App", "React", "User interface for authentication, profiles, collections, friends and exchanges")
+    Container(api, "Backend API", "Java, Spring Boot, MyBatis", "Contains application and business logic, processes requests, works with data and files")
+    ContainerDb(db, "PostgreSQL Database", "PostgreSQL", "Stores users, credentials, settings, insect types, specimens, files, friendships and exchanges")
+    Container(storage, "File Storage", "Local file storage", "Stores specimen photos and user avatars through a replaceable storage abstraction")
+}
+
+Rel(user, web, "Uses")
+Rel(web, api, "Sends requests to", "HTTP/JSON")
+Rel(api, db, "Reads and writes data")
+Rel(api, storage, "Stores, retrieves and deletes files")
+
+@enduml
