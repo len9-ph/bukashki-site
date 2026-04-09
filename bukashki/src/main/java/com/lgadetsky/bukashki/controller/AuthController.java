@@ -1,5 +1,6 @@
 package com.lgadetsky.bukashki.controller;
 
+import com.lgadetsky.bukashki.dto.UserLoginDto;
 import com.lgadetsky.bukashki.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.service.UserService;
 import jakarta.validation.Valid;
@@ -24,10 +25,18 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody @Valid UserRegisterDto userDto) {
-        LOG.debug("register(), userDto = {}", userDto.toString());
+    public ResponseEntity<Void> register(@RequestBody @Valid UserRegisterDto registerDto) {
+        LOG.debug("register(), registerDto = {}", registerDto);
 
-        userService.register(userDto.getEmail(), userDto.getPassword());
+        userService.register(registerDto.getEmail(), registerDto.getPassword());
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody @Valid UserLoginDto loginDto) {
+        LOG.debug("login(), loginDto = {}", loginDto);
+
+        userService.login(loginDto.getEmail(), loginDto.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
