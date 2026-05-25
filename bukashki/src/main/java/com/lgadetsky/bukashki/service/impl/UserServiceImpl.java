@@ -2,6 +2,7 @@ package com.lgadetsky.bukashki.service.impl;
 
 import com.lgadetsky.bukashki.exception.InvalidCredentialsException;
 import com.lgadetsky.bukashki.exception.ResourceAlreadyExistsException;
+import com.lgadetsky.bukashki.exception.UserNotFoundException;
 import com.lgadetsky.bukashki.mapper.UserMapper;
 import com.lgadetsky.bukashki.model.UserEntity;
 import com.lgadetsky.bukashki.service.UserService;
@@ -32,13 +33,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void login(String email, String pass) {
-        UserEntity realUser = userMapper.findByEmail(email).orElseThrow(InvalidCredentialsException::new);
-        String realPassHash = realUser.getPasswordHash();
-
-        if (!passwordEncoder.matches(pass, realPassHash)) {
-            throw new InvalidCredentialsException();
-        }
+    public UserEntity findUserByEmail(String email) {
+        return userMapper.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(email));
     }
 
 }
