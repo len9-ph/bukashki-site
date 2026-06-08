@@ -187,6 +187,27 @@ public class JwtFilter extends OncePerRequestFilter {
 
 `SecurityContextHolder` — это thread-local хранилище. Spring Security смотрит туда, когда решает — аутентифицирован ли текущий запрос.
 
+## Что такое Claims
+
+JWT состоит из трех частей:
+
+```
+header.payload.signature
+```
+
+Payload и есть набор Claims.
+
+Например токен может содержать:
+
+```
+{
+  "sub": "leonid",
+  "iat": 1717850000,
+  "exp": 1717853600,
+  "role": "ADMIN"
+}
+```
+
 ---
 
 ## Как всё это связано вместе
