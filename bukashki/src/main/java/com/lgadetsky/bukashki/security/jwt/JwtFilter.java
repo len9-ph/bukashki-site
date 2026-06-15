@@ -17,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private static final String HEADER_AUTHORIZATION = "Authorization";
-    private static final String HEADER_BEARER = "Bearer";
+    private static final String HEADER_BEARER = "Bearer ";
 
     private final JwtUtils jwtUtils;
     private final UserDetailsService userDetailsService;
