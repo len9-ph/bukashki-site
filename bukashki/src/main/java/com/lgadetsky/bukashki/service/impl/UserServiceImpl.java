@@ -1,6 +1,5 @@
 package com.lgadetsky.bukashki.service.impl;
 
-import com.lgadetsky.bukashki.exception.InvalidCredentialsException;
 import com.lgadetsky.bukashki.exception.ResourceAlreadyExistsException;
 import com.lgadetsky.bukashki.exception.UserNotFoundException;
 import com.lgadetsky.bukashki.mapper.UserMapper;

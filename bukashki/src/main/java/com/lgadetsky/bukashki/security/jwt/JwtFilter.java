@@ -5,7 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,7 +40,7 @@ public class JwtFilter extends OncePerRequestFilter {
             String username = jwtUtils.getUsernameFromToken(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null,
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
                     userDetails.getAuthorities());
 
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
