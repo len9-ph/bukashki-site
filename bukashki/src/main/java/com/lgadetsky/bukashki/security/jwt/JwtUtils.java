@@ -1,10 +1,6 @@
 package com.lgadetsky.bukashki.security.jwt;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import com.lgadetsky.bukashki.security.CustomUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -13,21 +9,27 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-
 import javax.crypto.SecretKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtils {
     private static final Logger LOG = LoggerFactory.getLogger(JwtUtils.class);
+
+    private static final String USERNAME = "username";
 
     @Value("${jwt.secret}")
     private String jwtSecret;
     @Value("${jwt.expiration-ms}")
     private long jwtExpirationMs;
 
-    public String generateJwtToken(UserDetails userDetails) {
+    public String generateJwtToken(CustomUserDetails userDetails) {
         return Jwts.builder()
-                .subject(userDetails.getUsername())
+                .subject(String.valueOf(userDetails.getId()))
+                .claim(USERNAME, userDetails.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(new Date().getTime() + jwtExpirationMs))
                 .signWith(getKey())
@@ -35,7 +37,11 @@ public class JwtUtils {
     }
 
     public String getUsernameFromToken(String token) {
-        return parseClaims(token).getSubject();
+        return parseClaims(token).get(USERNAME, String.class);
+    }
+
+    public Long getIdFromToken(String token) {
+        return Long.valueOf(parseClaims(token).getSubject());
     }
 
     public boolean isTokenValid(String token) {
