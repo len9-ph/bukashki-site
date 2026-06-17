@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.service;
 
-import com.lgadetsky.bukashki.model.UserEntity;
+import com.lgadetsky.bukashki.model.entity.UserEntity;
 
 public interface UserService {
     void register(String email, String pass);
