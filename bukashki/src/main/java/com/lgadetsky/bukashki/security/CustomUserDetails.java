@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.security;
 
-import com.lgadetsky.bukashki.model.UserEntity;
+import com.lgadetsky.bukashki.model.entity.UserCredentialsEntity;
 import java.util.Collection;
 import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,14 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final UserEntity user;
+    private final UserCredentialsEntity credentials;
 
-    public CustomUserDetails(UserEntity user) {
-        this.user = user;
+    public CustomUserDetails(UserCredentialsEntity credentials) {
+        this.credentials = credentials;
     }
 
     public Long getId() {
-        return user.getId();
+        return credentials.getId();
     }
 
     @Override
@@ -25,12 +25,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPasswordHash();
+        return credentials.getPasswordHash();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return credentials.getLogin();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return credentials.isEnabled();
     }
 
 }

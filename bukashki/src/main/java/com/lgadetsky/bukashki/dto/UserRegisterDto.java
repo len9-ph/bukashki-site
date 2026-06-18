@@ -6,22 +6,32 @@ import jakarta.validation.constraints.Size;
 
 public class UserRegisterDto {
     @NotBlank
-    @Email
-    private String email;
+    private String login;
+
     @NotBlank
     @Size(min = 8)
     private String password;
+
+    @NotBlank
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
+
+    @NotBlank
+    @Email
+    private String email;
 
     public UserRegisterDto() {
         // empty
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -32,9 +42,34 @@ public class UserRegisterDto {
         this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
-        return "UserRegisterDto [email=" + email + ", password=" + "********" + "]";
+        return "UserRegisterDto [login=" + login + ", password=" + password + ", firstName=" + firstName + ", lastName="
+                + lastName + ", email=" + email + "]";
     }
 
 }

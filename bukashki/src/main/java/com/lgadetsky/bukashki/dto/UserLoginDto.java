@@ -1,13 +1,11 @@
 package com.lgadetsky.bukashki.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class UserLoginDto {
     @NotBlank
-    @Email
-    private String email;
+    private String login;
     @NotBlank
     @Size(min = 8)
     private String password;
@@ -16,12 +14,12 @@ public class UserLoginDto {
         // empty
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -34,7 +32,7 @@ public class UserLoginDto {
 
     @Override
     public String toString() {
-        return "UserLoginDto [email=" + email + ", password=" + "********" + "]";
+        return "UserLoginDto [login=" + login + ", password=" + "********" + "]";
     }
 
 }
