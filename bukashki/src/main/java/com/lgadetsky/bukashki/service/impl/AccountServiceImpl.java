@@ -1,9 +1,5 @@
 package com.lgadetsky.bukashki.service.impl;
 
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import com.lgadetsky.bukashki.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.exception.ResourceAlreadyExistsException;
 import com.lgadetsky.bukashki.exception.UserNotFoundException;
@@ -14,7 +10,14 @@ import com.lgadetsky.bukashki.repository.UserRepository;
 import com.lgadetsky.bukashki.security.CustomUserDetails;
 import com.lgadetsky.bukashki.security.jwt.JwtUtils;
 import com.lgadetsky.bukashki.service.AccountService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccountServiceImpl implements AccountService {
 
     private final AuthenticationManager authenticationManager;
@@ -27,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public AccountServiceImpl(AuthenticationManager authenticationManager,
+    public AccountServiceImpl(@Lazy AuthenticationManager authenticationManager,
             UserCredentialsRepository credentialsRepository, UserRepository userRepository,
             JwtUtils jwtUtils, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
