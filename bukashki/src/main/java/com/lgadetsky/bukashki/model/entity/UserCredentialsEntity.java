@@ -29,11 +29,10 @@ public class UserCredentialsEntity {
     public UserCredentialsEntity() {
     }
 
-    public UserCredentialsEntity(Long userId, String login, String passwordHash, boolean enabled) {
+    public UserCredentialsEntity(Long userId, String login, String passwordHash) {
         this.userId = userId;
         this.login = login;
         this.passwordHash = passwordHash;
-        this.enabled = enabled;
     }
 
     public Long getId() {
