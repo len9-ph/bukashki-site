@@ -24,6 +24,9 @@ public class UserEntity {
     @Column
     private String email;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
     public UserEntity() {
     }
 
@@ -31,6 +34,13 @@ public class UserEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public UserEntity(String firstName, String lastName, String email, String avatarUrl) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.avatarUrl = avatarUrl;
     }
 
     public Long getUserId() {
@@ -65,10 +75,18 @@ public class UserEntity {
         this.email = email;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     @Override
     public String toString() {
         return "UserEntity [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-                + email + "]";
+                + email + ", avatarUrl=" + avatarUrl + "]";
     }
 
 }
