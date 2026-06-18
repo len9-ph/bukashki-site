@@ -4,7 +4,7 @@ import com.lgadetsky.bukashki.dto.UserLoginDto;
 import com.lgadetsky.bukashki.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.security.CustomUserDetails;
 import com.lgadetsky.bukashki.security.jwt.JwtUtils;
-import com.lgadetsky.bukashki.service.UserService;
+import com.lgadetsky.bukashki.service.AccountService;
 import jakarta.validation.Valid;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -21,33 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
-    private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
+public class AccountContoller {
+    private static final Logger LOG = LoggerFactory.getLogger(AccountContoller.class);
 
-    private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtils jwtUtils;
+    private final AccountService accountService;
 
-    public AuthController(UserService userService,
-            AuthenticationManager authenticationManager,
-            JwtUtils jwtUtils) {
-        this.userService = userService;
-        this.authenticationManager = authenticationManager;
-        this.jwtUtils = jwtUtils;
+    public AccountContoller(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid UserLoginDto loginDto) {
         LOG.debug("login(), loginDto = {}", loginDto);
 
-        Authentication auth = authenticationManager
-                .authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
-                );
-
-        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-
-        String token = jwtUtils.generateJwtToken(userDetails);
+        String token = accountService.login(loginDto.getLogin(), loginDto.getPassword());
 
         return ResponseEntity.ok(Map.of("token", token));
     }
@@ -56,7 +43,8 @@ public class AuthController {
     public ResponseEntity<Void> register(@RequestBody @Valid UserRegisterDto registerDto) {
         LOG.debug("register(), registerDto = {}", registerDto);
 
-        userService.register(registerDto.getEmail(), registerDto.getPassword());
+        accountService.register(registerDto);
+
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

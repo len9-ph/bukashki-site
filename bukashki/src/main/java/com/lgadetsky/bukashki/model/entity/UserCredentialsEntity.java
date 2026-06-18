@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,6 +13,9 @@ public class UserCredentialsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "login", nullable = false, unique = true)
     private String login;
@@ -24,14 +26,11 @@ public class UserCredentialsEntity {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @OneToOne(mappedBy = "credentials")
-    private UserEntity user;
-
     public UserCredentialsEntity() {
     }
 
-    public UserCredentialsEntity(Long id, String login, String passwordHash, boolean enabled) {
-        this.id = id;
+    public UserCredentialsEntity(Long userId, String login, String passwordHash, boolean enabled) {
+        this.userId = userId;
         this.login = login;
         this.passwordHash = passwordHash;
         this.enabled = enabled;
@@ -43,6 +42,14 @@ public class UserCredentialsEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getLogin() {
@@ -71,8 +78,8 @@ public class UserCredentialsEntity {
 
     @Override
     public String toString() {
-        return "UserCredentialsEntity [id=" + id + ", login=" + login + ", passwordHash=" + passwordHash + ", enabled="
-                + enabled + "]";
+        return "UserCredentialsEntity [id=" + id + ", userId=" + userId + ", login=" + login + ", passwordHash="
+                + passwordHash + ", enabled=" + enabled + "]";
     }
 
 }
