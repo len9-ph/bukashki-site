@@ -10,7 +10,6 @@ import com.lgadetsky.bukashki.repository.UserRepository;
 import com.lgadetsky.bukashki.security.CustomUserDetails;
 import com.lgadetsky.bukashki.security.jwt.JwtUtils;
 import com.lgadetsky.bukashki.service.AccountService;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public AccountServiceImpl(@Lazy AuthenticationManager authenticationManager,
+    public AccountServiceImpl(AuthenticationManager authenticationManager,
             UserCredentialsRepository credentialsRepository, UserRepository userRepository,
             JwtUtils jwtUtils, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
@@ -66,8 +65,7 @@ public class AccountServiceImpl implements AccountService {
 
         credentialsRepository.save(new UserCredentialsEntity(newUser.getUserId(),
                 userRegisterDto.getLogin(),
-                passwordHash,
-                true));
+                passwordHash));
 
     }
 
