@@ -8,6 +8,4 @@ public interface AccountService {
 
     void register(UserRegisterDto userRegisterDto);
 
-    UserCredentialsEntity getCredentialsByLogin(String login);
-
 }

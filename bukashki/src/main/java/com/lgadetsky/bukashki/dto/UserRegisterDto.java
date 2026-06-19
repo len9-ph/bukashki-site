@@ -22,6 +22,9 @@ public class UserRegisterDto {
     @Email
     private String email;
 
+
+    private String avatarUrl;
+
     public UserRegisterDto() {
         // empty
     }
@@ -66,10 +69,23 @@ public class UserRegisterDto {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "UserRegisterDto [login=" + login + ", password=" + password + ", firstName=" + firstName + ", lastName="
-                + lastName + ", email=" + email + "]";
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRegisterDto{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                '}';
+    }
 }
