@@ -81,7 +81,7 @@ public class UserRegisterDto {
     public String toString() {
         return "UserRegisterDto{" +
                 "login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + "*****" + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
