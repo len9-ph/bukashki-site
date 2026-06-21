@@ -1,13 +1,19 @@
 package com.lgadetsky.bukashki.controller;
 
-import com.lgadetsky.bukashki.dto.UserRegisterDto;
+import com.lgadetsky.bukashki.dto.UserUpdateDto;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
+import com.lgadetsky.bukashki.security.CustomUserDetails;
 import com.lgadetsky.bukashki.service.UserService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
@@ -20,19 +26,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<UserEntity> getUser(@RequestParam("userId") Long userId) {
-        LOG.debug("get user, userId = {}", userId);
+    @GetMapping("/me")
+    public ResponseEntity<UserEntity> getMe(Authentication authentication) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        return ResponseEntity.ok(userService.getUser(userId));
+        LOG.debug("getMe, userId = {}", userDetails.getId());
+
+        return ResponseEntity.ok(userService.getMe(userDetails.getId()));
+
     }
 
-    @PatchMapping("/update")
-    public ResponseEntity<Void> updateUser(@RequestBody UserRegisterDto dto) {
-        LOG.debug("update, registerDto = {}", dto.toString());
+    @PatchMapping("/me")
+    public ResponseEntity<Void> updateMe(@RequestBody @Valid UserUpdateDto updateDto, Authentication authentication) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        userService.updateUser(dto);
+        LOG.debug("patch me, userId = {}, updateDto = {}", userDetails.getId(), updateDto);
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        userService.patchUser(userDetails.getId(), updateDto);
+
+        return ResponseEntity.ok().build();
     }
 }

@@ -2,7 +2,6 @@ package com.lgadetsky.bukashki.service.impl;
 
 import com.lgadetsky.bukashki.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.exception.ResourceAlreadyExistsException;
-import com.lgadetsky.bukashki.exception.UserNotFoundException;
 import com.lgadetsky.bukashki.model.entity.UserCredentialsEntity;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.repository.UserCredentialsRepository;
@@ -54,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void register(UserRegisterDto userRegisterDto) {
         if (credentialsRepository.findByLogin(userRegisterDto.getLogin()).isPresent()) {
-            throw new ResourceAlreadyExistsException("Email already in use");
+            throw new ResourceAlreadyExistsException("login already in use");
         }
 
         UserEntity newUser = userRepository.save(new UserEntity(userRegisterDto.getFirstName(),
@@ -67,13 +66,6 @@ public class AccountServiceImpl implements AccountService {
                 userRegisterDto.getLogin(),
                 passwordHash));
 
-    }
-
-    @Override
-    public UserCredentialsEntity getCredentialsByLogin(String login) {
-        return credentialsRepository
-                .findByLogin(login)
-                .orElseThrow(() -> new UserNotFoundException("user not found"));
     }
 
 }

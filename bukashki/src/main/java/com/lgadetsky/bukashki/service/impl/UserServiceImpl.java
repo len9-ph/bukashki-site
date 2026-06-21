@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.service.impl;
 
-import com.lgadetsky.bukashki.dto.UserRegisterDto;
+import com.lgadetsky.bukashki.dto.UserUpdateDto;
 import com.lgadetsky.bukashki.exception.UserNotFoundException;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.repository.UserRepository;
@@ -16,12 +16,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity getUser(Long userId) {
+    public UserEntity getMe(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("user not found"));
     }
 
     @Override
-    public void updateUser(UserRegisterDto dto) {
-        userRepository.save(new UserEntity(dto.getFirstName(), dto.getLastName(), dto.getEmail(), dto.getAvatarUrl()));
+    public void patchUser(Long userId, UserUpdateDto updateDto) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
+
+        if (updateDto.getFirstName() != null)
+            user.setFirstName(updateDto.getFirstName());
+
+        if (updateDto.getLastName() != null)
+            user.setLastName(updateDto.getLastName());
+
+        if (updateDto.getEmail() != null)
+            user.setEmail(updateDto.getEmail());
+
+        if (updateDto.getAvatarUrl() != null)
+            user.setAvatarUrl(updateDto.getAvatarUrl());
+
+        userRepository.save(user);
+
     }
 }

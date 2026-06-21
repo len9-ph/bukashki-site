@@ -1,10 +1,10 @@
 package com.lgadetsky.bukashki.service;
 
-import com.lgadetsky.bukashki.dto.UserRegisterDto;
+import com.lgadetsky.bukashki.dto.UserUpdateDto;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 
 public interface UserService {
-    UserEntity getUser(Long userId);
+    UserEntity getMe(Long userId);
 
-    void updateUser(UserRegisterDto dto);
+    void patchUser(Long userId, UserUpdateDto updateDto);
 }
