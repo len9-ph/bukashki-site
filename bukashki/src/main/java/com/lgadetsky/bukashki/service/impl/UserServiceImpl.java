@@ -1,7 +1,7 @@
 package com.lgadetsky.bukashki.service.impl;
 
-import com.lgadetsky.bukashki.dto.UserUpdateDto;
 import com.lgadetsky.bukashki.exception.UserNotFoundException;
+import com.lgadetsky.bukashki.model.dto.UserUpdateDto;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.repository.UserRepository;
 import com.lgadetsky.bukashki.service.UserService;
@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity getMe(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("user not found"));
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("userId"));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.lgadetsky.bukashki.service.impl;
 
-import com.lgadetsky.bukashki.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.exception.ResourceAlreadyExistsException;
+import com.lgadetsky.bukashki.model.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.model.entity.UserCredentialsEntity;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.repository.UserCredentialsRepository;

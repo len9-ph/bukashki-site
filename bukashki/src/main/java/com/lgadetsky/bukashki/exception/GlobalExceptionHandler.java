@@ -26,8 +26,8 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse("ALREADY_EXIST", e.getMessage()));
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handlerUsernameNotFound(UserNotFoundException e) {
+    @ExceptionHandler(InsectNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlerUsernameNotFound(InsectNotFoundException e) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("USER_NOT_FOUND", e.getMessage()));
