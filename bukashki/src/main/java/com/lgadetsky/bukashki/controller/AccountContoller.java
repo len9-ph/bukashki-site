@@ -1,7 +1,7 @@
 package com.lgadetsky.bukashki.controller;
 
-import com.lgadetsky.bukashki.dto.UserLoginDto;
-import com.lgadetsky.bukashki.dto.UserRegisterDto;
+import com.lgadetsky.bukashki.model.dto.UserLoginDto;
+import com.lgadetsky.bukashki.model.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.service.AccountService;
 import jakarta.validation.Valid;
 import java.util.Map;

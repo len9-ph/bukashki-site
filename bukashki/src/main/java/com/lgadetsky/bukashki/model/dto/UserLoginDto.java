@@ -1,4 +1,4 @@
-package com.lgadetsky.bukashki.dto;
+package com.lgadetsky.bukashki.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

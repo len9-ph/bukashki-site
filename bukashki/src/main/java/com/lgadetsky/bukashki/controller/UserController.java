@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.controller;
 
-import com.lgadetsky.bukashki.dto.UserUpdateDto;
+import com.lgadetsky.bukashki.model.dto.UserUpdateDto;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.security.CustomUserDetails;
 import com.lgadetsky.bukashki.service.UserService;
