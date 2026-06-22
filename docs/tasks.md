@@ -105,15 +105,17 @@
 
 ## 🔐 EPIC: Access Control
 
-**Цель:** централизованные проверки
+**Цель:** централизованные проверки через Spring Security method security
+
+**Подход:** `@PreAuthorize` с custom `PermissionEvaluator` — проверки декларативные, их сложнее случайно пропустить, чем при ручном вызове сервиса из каждого метода.
 
 ### Issues
-- [ ] Создать сервис access_control
-- [ ] canEditSpecimen(userId, specimenId)
-- [ ] canDeletePhoto(userId, photoId)
-- [ ] canViewCollection(userId, targetUserId)
-- [ ] Проверка владельца
-- [ ] Проверка приватности
+- [ ] Реализовать `InsectPermissionEvaluator implements PermissionEvaluator`
+- [ ] Зарегистрировать через `MethodSecurityExpressionHandler`
+- [ ] `@PreAuthorize("@pe.canEdit(#userId, #specimenId)")` на update/delete specimen
+- [ ] `@PreAuthorize("@pe.canDelete(#userId, #photoId)")` на delete photo
+- [ ] Логика `canView(userId, targetUserId)` — проверка public/friend для коллекций
+- [ ] Проверка приватности (public / only friends)
 - [ ] Интеграция в specimen и photos
 
 ---
@@ -142,11 +144,13 @@
 
 **Цель:** просмотр чужих коллекций
 
+**Зависимость:** Access Control EPIC (canView нужен до реализации приватности)
+
 ### Issues
-- [ ] GET /users/{id}/specimens
-- [ ] Проверка доступа (public / friend)
-- [ ] Ограничение доступа
-- [ ] Ошибка "нет доступа"
+- [ ] GET /users/{id}/specimens — список коллекции пользователя
+- [ ] GET /users/{id}/specimens/{specimenId} — один экземпляр из чужой коллекции
+- [ ] Проверка доступа через `@PreAuthorize("@pe.canView(#userId, #targetUserId)")`
+- [ ] Ошибка 403 если коллекция закрыта
 
 ---
 
