@@ -40,7 +40,7 @@ public class InsectController {
     @GetMapping("/{insectId}")
     public ResponseEntity<InsectDto> getInsect(@AuthenticationPrincipal CustomUserDetails user,
             @PathVariable Long insectId) {
-        return ResponseEntity.ok(InsectBean.toDto(insectService.getInsect(user.getId(), insectId)));
+        return ResponseEntity.ok(InsectBean.toDto(insectService.getInsect(insectId)));
     }
 
     @PostMapping
