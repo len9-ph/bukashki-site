@@ -6,8 +6,6 @@ import com.lgadetsky.bukashki.model.entity.InsectEntity;
 import com.lgadetsky.bukashki.repository.InsectRepository;
 import com.lgadetsky.bukashki.service.InsectService;
 import java.util.List;
-import java.util.Objects;
-import org.springframework.lang.NonNull;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -68,6 +66,13 @@ public class InsectServiceImpl implements InsectService {
             throw new AccessDeniedException("not ur insect");
 
         insectRepository.deleteById(insectId);
+    }
+
+    @Override
+    public List<InsectBean> getInsects() {
+        return insectRepository.findAll().stream()
+                .map(InsectBean::fromEntity)
+                .toList();
     }
 
 }

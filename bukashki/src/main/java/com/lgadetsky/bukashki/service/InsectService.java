@@ -9,9 +9,11 @@ public interface InsectService {
 
     void updateInsect(Long userId, InsectBean insectBean);
 
-    InsectBean getInsect(@NonNull Long insectId);
+    InsectBean getInsect(Long insectId);
+
+    List<InsectBean> getInsects();
 
     List<InsectBean> getInsectsForUserId(Long userId);
 
-    void deleteInsect(@NonNull Long userId, @NonNull Long insectId);
+    void deleteInsect(Long userId, @NonNull Long insectId);
 }

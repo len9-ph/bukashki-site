@@ -1,11 +1,10 @@
 package com.lgadetsky.bukashki.model.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class InsectUpdateDto {
-    @NotBlank
+    @NotNull
     private Long insectId;
-    @NotBlank
     private String name;
     private String description;
 
