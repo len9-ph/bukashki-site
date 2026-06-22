@@ -1,7 +1,8 @@
-package com.lgadetsky.bukashki.model.beans;
+package com.lgadetsky.bukashki.model.bean;
 
 import com.lgadetsky.bukashki.model.dto.InsectDto;
 import com.lgadetsky.bukashki.model.entity.InsectEntity;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,6 +14,12 @@ public class InsectBean {
     private String description;
 
     public InsectBean(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public InsectBean(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }

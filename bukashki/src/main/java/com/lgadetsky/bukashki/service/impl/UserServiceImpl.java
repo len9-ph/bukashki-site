@@ -17,13 +17,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity getMe(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("userId"));
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(String.valueOf(userId)));
     }
 
     @Override
     public void patchUser(Long userId, UserUpdateDto updateDto) {
         UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("user not found"));
+                .orElseThrow(() -> new UserNotFoundException(String.valueOf(userId)));
 
         if (updateDto.getFirstName() != null)
             user.setFirstName(updateDto.getFirstName());

@@ -1,7 +1,7 @@
 package com.lgadetsky.bukashki.service.impl;
 
 import com.lgadetsky.bukashki.exception.InsectNotFoundException;
-import com.lgadetsky.bukashki.model.beans.InsectBean;
+import com.lgadetsky.bukashki.model.bean.InsectBean;
 import com.lgadetsky.bukashki.model.entity.InsectEntity;
 import com.lgadetsky.bukashki.repository.InsectRepository;
 import com.lgadetsky.bukashki.service.InsectService;
@@ -22,8 +22,6 @@ public class InsectServiceImpl implements InsectService {
 
     @Override
     public InsectBean createInsect(Long userId, InsectBean insectBean) {
-        Objects.requireNonNull(insectBean);
-
         insectBean.setUserId(userId);
 
         return InsectBean.fromEntity(insectRepository.save(InsectBean.toEntity(insectBean)));
@@ -47,7 +45,7 @@ public class InsectServiceImpl implements InsectService {
     }
 
     @Override
-    public InsectBean getInsect(@NonNull Long insectId) {
+    public InsectBean getInsect(Long insectId) {
         InsectEntity entity = insectRepository.findById(insectId)
                 .orElseThrow(() -> new InsectNotFoundException(insectId));
 
@@ -62,7 +60,7 @@ public class InsectServiceImpl implements InsectService {
     }
 
     @Override
-    public void deleteInsect(@NonNull Long userId, @NonNull Long insectId) {
+    public void deleteInsect(Long userId, Long insectId) {
         InsectEntity entity = insectRepository.findById(insectId)
                 .orElseThrow(() -> new InsectNotFoundException(insectId));
 

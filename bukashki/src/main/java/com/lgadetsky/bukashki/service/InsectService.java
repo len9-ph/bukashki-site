@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.service;
 
-import com.lgadetsky.bukashki.model.beans.InsectBean;
+import com.lgadetsky.bukashki.model.bean.InsectBean;
 import java.util.List;
 import org.springframework.lang.NonNull;
 

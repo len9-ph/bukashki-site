@@ -4,10 +4,20 @@ import jakarta.validation.constraints.NotBlank;
 
 public class InsectUpdateDto {
     @NotBlank
+    private Long insectId;
+    @NotBlank
     private String name;
     private String description;
 
     public InsectUpdateDto() {
+    }
+
+    public Long getInsectId() {
+        return insectId;
+    }
+
+    public void setInsectId(Long insectId) {
+        this.insectId = insectId;
     }
 
     public String getName() {

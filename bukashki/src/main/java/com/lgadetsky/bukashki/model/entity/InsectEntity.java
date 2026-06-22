@@ -23,6 +23,9 @@ public class InsectEntity {
     @Column(name = "insect_description")
     private String description;
 
+    public InsectEntity() {
+    }
+
     public InsectEntity(Long userId, Date createdAt, String name, String description) {
         this.userId = userId;
         this.createdAt = createdAt;

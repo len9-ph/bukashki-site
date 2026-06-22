@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.controller;
 
-import com.lgadetsky.bukashki.model.beans.InsectBean;
+import com.lgadetsky.bukashki.model.bean.InsectBean;
 import com.lgadetsky.bukashki.model.dto.InsectCreateDto;
 import com.lgadetsky.bukashki.model.dto.InsectDto;
 import com.lgadetsky.bukashki.model.dto.InsectUpdateDto;
@@ -58,7 +58,7 @@ public class InsectController {
         Long currUserId = userDetails.getId();
 
         insectService.updateInsect(currUserId,
-                new InsectBean(dto.getName(), dto.getDescription()));
+                new InsectBean(dto.getInsectId(), dto.getName(), dto.getDescription()));
 
         return ResponseEntity.ok().build();
     }

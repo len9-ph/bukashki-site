@@ -1,8 +1,8 @@
 package com.lgadetsky.bukashki.exception;
 
 public class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException(String login) {
-        super("User not found for login: " + login);
+    public UserNotFoundException(String userId) {
+        super("User not found for userId: " + userId);
     }
 
 }
