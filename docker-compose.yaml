@@ -39,6 +39,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/bukashki
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=pass
+      - MINIO_USERNANE=miniouser
+      - MINIO_PASSWORD=miniopass
     depends_on:
       db:
         condition: service_healthy
