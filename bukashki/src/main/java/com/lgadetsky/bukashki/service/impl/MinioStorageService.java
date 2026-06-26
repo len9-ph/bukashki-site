@@ -12,7 +12,6 @@ import java.security.NoSuchAlgorithmException;
 
 import io.minio.errors.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class MinioStorageService implements StorageService {
