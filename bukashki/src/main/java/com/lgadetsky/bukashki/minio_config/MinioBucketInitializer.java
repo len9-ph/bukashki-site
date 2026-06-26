@@ -11,25 +11,24 @@ import org.springframework.stereotype.Component;
 public class MinioBucketInitializer {
 
     private final MinioClient minioClient;
+    private final MinioProperties properties;
 
-    public MinioBucketInitializer(MinioClient minioClient) {
+    public MinioBucketInitializer(MinioClient minioClient, MinioProperties properties) {
         this.minioClient = minioClient;
+        this.properties = properties;
     }
-
-    @Value("&{minio.bucket.name}")
-    private String bucketName;
 
     @PostConstruct
     public void init() throws Exception {
         boolean exists = minioClient.bucketExists(
                 BucketExistsArgs.builder()
-                        .bucket(bucketName)
+                        .bucket(properties.bucket())
                         .build());
 
         if (!exists) {
             minioClient.makeBucket(
                     MakeBucketArgs.builder()
-                            .bucket(bucketName)
+                            .bucket(properties.bucket())
                             .build());
         }
     }

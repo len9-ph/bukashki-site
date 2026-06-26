@@ -1,10 +1,9 @@
 package com.lgadetsky.bukashki.service;
 
 import java.io.InputStream;
-import org.springframework.web.multipart.MultipartFile;
 
 public interface StorageService {
-    void upload(String objectkey, MultipartFile file);
+    void upload(String objectKey, InputStream inputStream, long size, String contentType);
 
     InputStream download(String objectKey);
 
