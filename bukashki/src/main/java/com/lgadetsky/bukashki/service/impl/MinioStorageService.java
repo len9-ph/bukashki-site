@@ -25,7 +25,7 @@ public class MinioStorageService implements StorageService {
     }
 
     @Override
-    public void upload(String objectKey, InputStream inputStream, long size, String contentType) {
+    public String upload(String objectKey, InputStream inputStream, long size, String contentType) {
         try {
             minioClient.putObject(
                     PutObjectArgs.builder()
@@ -39,6 +39,7 @@ public class MinioStorageService implements StorageService {
                             .contentType(contentType)
                             .build()
             );
+            return getUrl(objectKey);
         } catch (
                 ServerException
                 | IOException
@@ -93,6 +94,17 @@ public class MinioStorageService implements StorageService {
                 | InternalException e) {
             throw new StorageException("Failed to delete object", e);
         }
+    }
+
+    @Override
+    public String getUrl(String objectKey) {
+        return new StringBuilder()
+                .append(properties.publicUrl())
+                .append("/")
+                .append(properties.bucket())
+                .append("/")
+                .append(objectKey)
+                .toString();
     }
 
 }
