@@ -70,7 +70,7 @@ public class MinioStorageService implements StorageService {
                 | InvalidResponseException
                 | XmlParserException
                 | InternalException e) {
-            throw new StorageException("Failed to upload object", e);
+            throw new StorageException("Failed to download object", e);
         }
     }
 
@@ -91,7 +91,7 @@ public class MinioStorageService implements StorageService {
                 | InvalidResponseException
                 | XmlParserException
                 | InternalException e) {
-            throw new StorageException("Failed to upload object", e);
+            throw new StorageException("Failed to delete object", e);
         }
     }
 

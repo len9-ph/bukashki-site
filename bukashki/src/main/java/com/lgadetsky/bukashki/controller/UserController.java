@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/username")
+@RequestMapping("/user")
 public class UserController {
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 

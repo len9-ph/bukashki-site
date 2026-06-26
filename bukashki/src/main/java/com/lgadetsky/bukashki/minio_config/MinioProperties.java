@@ -2,7 +2,7 @@ package com.lgadetsky.bukashki.minio_config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "minio.")
+@ConfigurationProperties(prefix = "minio")
 public record MinioProperties(
         String url,
         String username,
