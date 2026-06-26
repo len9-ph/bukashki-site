@@ -1,0 +1,91 @@
+
+@host = http://localhost:8080
+
+
+### register
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+    "login": "tester",
+    "password": "password123",
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "tester@example.com",
+    "avatarUrl": "https://example.com/avatar.png"
+}
+
+
+### login — saves the JWT into the {{token}} variable
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+    "login": "tester",
+    "password": "password123"
+}
+
+> {%
+    client.global.set("token", response.body.token);
+%}
+
+
+### getMe
+GET {{host}}/user/me
+Authorization: Bearer {{token}}
+
+
+### updateMe
+PATCH {{host}}/user/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "firstName": "Updated",
+    "lastName": "User",
+    "email": "updated@example.com",
+    "avatarUrl": "https://example.com/new-avatar.png"
+}
+
+
+### getInsects — all insects
+GET {{host}}/insects
+Authorization: Bearer {{token}}
+
+
+### getMyInsects — insects of the current user
+GET {{host}}/insects/my
+Authorization: Bearer {{token}}
+
+
+### getInsect — by id
+GET {{host}}/insects/1
+Authorization: Bearer {{token}}
+
+
+### createInsect
+POST {{host}}/insects
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Муравей",
+    "description": "Рыжий лесной муравей"
+}
+
+
+### updateInsect
+PATCH {{host}}/insects
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "insectId": 1,
+    "name": "Муравей (обновлено)",
+    "description": "Обновлённое описание"
+}
+
+
+### deleteInsect — by id
+DELETE {{host}}/insects/1
+Authorization: Bearer {{token}}
