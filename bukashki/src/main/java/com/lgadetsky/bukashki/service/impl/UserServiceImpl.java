@@ -1,9 +1,11 @@
 package com.lgadetsky.bukashki.service.impl;
 
 import com.lgadetsky.bukashki.exception.UserNotFoundException;
+import com.lgadetsky.bukashki.model.dto.UserResponseDto;
 import com.lgadetsky.bukashki.model.dto.UserUpdateDto;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.repository.UserRepository;
+import com.lgadetsky.bukashki.service.StorageService;
 import com.lgadetsky.bukashki.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +13,24 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    private final StorageService storageService;
+
+    public UserServiceImpl(UserRepository userRepository, StorageService storageService) {
         this.userRepository = userRepository;
+        this.storageService = storageService;
     }
 
     @Override
-    public UserEntity getMe(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(String.valueOf(userId)));
+    public UserResponseDto getMe(Long userId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(String.valueOf(userId)));
+
+        String avatarUrl = user.getAvatarObjectKey() == null
+                ? null
+                : storageService.getUrl(user.getAvatarObjectKey());
+
+        return new UserResponseDto(user.getUserId(), user.getFirstName(), user.getLastName(), user.getEmail(),
+                avatarUrl);
     }
 
     @Override
@@ -33,9 +46,6 @@ public class UserServiceImpl implements UserService {
 
         if (updateDto.getEmail() != null)
             user.setEmail(updateDto.getEmail());
-
-        if (updateDto.getAvatarUrl() != null)
-            user.setAvatarUrl(updateDto.getAvatarUrl());
 
         userRepository.save(user);
 

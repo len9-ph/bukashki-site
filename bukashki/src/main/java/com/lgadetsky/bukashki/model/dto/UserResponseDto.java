@@ -1,45 +1,26 @@
 package com.lgadetsky.bukashki.model.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
-public class UserRegisterDto {
-    @NotBlank
-    private String login;
-
-    @NotBlank
-    @Size(min = 8)
-    private String password;
-
-    @NotBlank
+public class UserResponseDto {
+    private Long userId;
     private String firstName;
-
-    @NotBlank
     private String lastName;
-
-    @NotBlank
-    @Email
     private String email;
+    private String avatarUrl;
 
-    public UserRegisterDto() {
-        // empty
+    public UserResponseDto(Long userId, String firstName, String lastName, String email, String avatarUrl) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.avatarUrl = avatarUrl;
     }
 
-    public String getLogin() {
-        return login;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -66,14 +47,22 @@ public class UserRegisterDto {
         this.email = email;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     @Override
     public String toString() {
-        return "UserRegisterDto{" +
-                "login='" + login + '\'' +
-                ", password='" + "*****" + '\'' +
+        return "UserResponseDto{" +
+                "userId=" + userId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
                 '}';
     }
 }

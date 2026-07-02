@@ -1,7 +1,9 @@
 package com.lgadetsky.bukashki.service.impl;
 
+import com.lgadetsky.bukashki.exception.EmptyFileException;
 import com.lgadetsky.bukashki.exception.PhotoNotFoundException;
 import com.lgadetsky.bukashki.exception.StorageException;
+import com.lgadetsky.bukashki.exception.UnsupportedFileTypeException;
 import com.lgadetsky.bukashki.model.bean.InsectBean;
 import com.lgadetsky.bukashki.model.dto.InsectPhotoResponseDto;
 import com.lgadetsky.bukashki.model.entity.InsectPhotoEntity;
@@ -45,6 +47,10 @@ public class InsectPhotoServiceImpl implements InsectPhotoService {
 
     @Override
     public InsectPhotoResponseDto addPhoto(Long userId, Long insectId, MultipartFile file) {
+        if(file.isEmpty()) {
+            return null;
+        }
+
         InsectBean insectBean = insectService.getInsect(insectId);
         if (!insectBean.getUserId().equals(userId)) {
             throw new AccessDeniedException("not yours insect");
@@ -110,9 +116,12 @@ public class InsectPhotoServiceImpl implements InsectPhotoService {
     }
 
     private String buildObjectKey(Long insectId, MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new EmptyFileException();
+        }
         String ext = ALLOWED.get(file.getContentType());
         if (ext == null) {
-            throw new StorageException("Unsupported image type = " + file.getContentType());
+            throw new UnsupportedFileTypeException(file.getContentType());
         }
         return INSECT_STORAGE_PATH.formatted(insectId, UUID.randomUUID(), ext);
     }

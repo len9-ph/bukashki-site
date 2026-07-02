@@ -9,8 +9,6 @@ public class UserUpdateDto {
     @Email
     private String email;
 
-    private String avatarUrl;
-
     public UserUpdateDto() {
     }
 
@@ -38,18 +36,9 @@ public class UserUpdateDto {
         this.email = email;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
     @Override
     public String toString() {
-        return "UserUpdateDto [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", avatarUrl="
-                + avatarUrl + "]";
+        return "UserUpdateDto [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
     }
 
 }
