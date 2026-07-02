@@ -1,7 +1,6 @@
 package com.lgadetsky.bukashki.service.impl;
 
 import com.lgadetsky.bukashki.exception.InsectNotFoundException;
-import com.lgadetsky.bukashki.model.bean.InsectBean;
 import com.lgadetsky.bukashki.model.entity.InsectEntity;
 import com.lgadetsky.bukashki.repository.InsectRepository;
 import com.lgadetsky.bukashki.service.InsectService;
@@ -19,42 +18,40 @@ public class InsectServiceImpl implements InsectService {
     }
 
     @Override
-    public InsectBean createInsect(Long userId, InsectBean insectBean) {
-        insectBean.setUserId(userId);
+    public InsectEntity createInsect(Long userId, InsectEntity newInsect) {
+        newInsect.setUserId(userId);
 
-        return InsectBean.fromEntity(insectRepository.save(InsectBean.toEntity(insectBean)));
+        return insectRepository.save(newInsect);
     }
 
     @Override
-    public void updateInsect(Long userId, InsectBean insectBean) {
-        InsectEntity entity = insectRepository.findById(insectBean.getId())
-                .orElseThrow(() -> new InsectNotFoundException(insectBean.getId()));
+    public void updateInsect(Long userId, InsectEntity newInsect) {
+        InsectEntity entity = insectRepository.findById(newInsect.getId())
+                .orElseThrow(() -> new InsectNotFoundException(newInsect.getId()));
 
         if (!entity.getUserId().equals(userId))
             throw new AccessDeniedException("not ur insect");
 
-        if (insectBean.getName() != null)
-            entity.setName(insectBean.getName());
+        if (newInsect.getName() != null)
+            entity.setName(newInsect.getName());
 
-        if (insectBean.getDescription() != null)
-            entity.setDescription(insectBean.getDescription());
+        if (newInsect.getDescription() != null)
+            entity.setDescription(newInsect.getDescription());
 
         insectRepository.save(entity);
     }
 
     @Override
-    public InsectBean getInsect(Long insectId) {
+    public InsectEntity getInsect(Long insectId) {
         InsectEntity entity = insectRepository.findById(insectId)
                 .orElseThrow(() -> new InsectNotFoundException(insectId));
 
-        return InsectBean.fromEntity(entity);
+        return entity;
     }
 
     @Override
-    public List<InsectBean> getInsectsForUserId(Long userId) {
-        return insectRepository.findAllByUserId(userId).stream()
-                .map(InsectBean::fromEntity)
-                .toList();
+    public List<InsectEntity> getInsectsForUserId(Long userId) {
+        return insectRepository.findAllByUserId(userId);
     }
 
     @Override
@@ -69,10 +66,8 @@ public class InsectServiceImpl implements InsectService {
     }
 
     @Override
-    public List<InsectBean> getInsects() {
-        return insectRepository.findAll().stream()
-                .map(InsectBean::fromEntity)
-                .toList();
+    public List<InsectEntity> getInsects() {
+        return insectRepository.findAll();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.controller;
 
-import com.lgadetsky.bukashki.model.bean.InsectBean;
+import com.lgadetsky.bukashki.mapper.InsectMapper;
 import com.lgadetsky.bukashki.model.dto.InsectCreateDto;
 import com.lgadetsky.bukashki.model.dto.InsectUpdateDto;
 import com.lgadetsky.bukashki.model.dto.response.InsectPhotoResponseDto;
@@ -43,28 +43,28 @@ public class InsectController {
 
     @GetMapping
     public ResponseEntity<List<InsectResponseDto>> getInsects() {
-        return ResponseEntity.ok(insectService.getInsects().stream().map(InsectBean::toDto).toList());
+        return ResponseEntity.ok(insectService.getInsects().stream().map(InsectMapper::toDto).toList());
     }
 
     @GetMapping("/{insectId}")
     public ResponseEntity<InsectResponseDto> getInsect(@PathVariable Long insectId) {
-        return ResponseEntity.ok(InsectBean.toDto(insectService.getInsect(insectId)));
+        return ResponseEntity.ok(InsectMapper.toDto(insectService.getInsect(insectId)));
     }
 
     @PostMapping
     public ResponseEntity<Void> createInsect(@AuthenticationPrincipal CustomUserDetails user,
-                                             @RequestBody() @Valid InsectCreateDto dto) {
+            @RequestBody() @Valid InsectCreateDto dto) {
         insectService.createInsect(user.getId(),
-                new InsectBean(dto.getName(), dto.getDescription()));
+                InsectMapper.toEntity(dto));
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping
     public ResponseEntity<Void> updateInsect(@AuthenticationPrincipal CustomUserDetails user,
-                                             @RequestBody @Valid InsectUpdateDto dto) {
+            @RequestBody @Valid InsectUpdateDto dto) {
         insectService.updateInsect(user.getId(),
-                new InsectBean(dto.getInsectId(), dto.getName(), dto.getDescription()));
+                InsectMapper.toEntity(dto));
 
         return ResponseEntity.ok().build();
     }
@@ -72,26 +72,22 @@ public class InsectController {
     @GetMapping("/my")
     public ResponseEntity<List<InsectResponseDto>> getInsects(@AuthenticationPrincipal CustomUserDetails user) {
         return ResponseEntity.ok(insectService.getInsectsForUserId(user.getId()).stream()
-                .map(InsectBean::toDto)
+                .map(InsectMapper::toDto)
                 .toList());
     }
 
     @DeleteMapping("/{insectId}")
     public ResponseEntity<Void> deleteInsect(@AuthenticationPrincipal CustomUserDetails user,
-                                             @PathVariable Long insectId) {
+            @PathVariable Long insectId) {
         insectService.deleteInsect(user.getId(), insectId);
 
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(
-            value = "/{insectId}/photos",
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
-    )
+    @PostMapping(value = "/{insectId}/photos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<InsectPhotoResponseDto> uploadPhoto(@AuthenticationPrincipal CustomUserDetails user,
             @RequestPart("file") MultipartFile file,
-            @PathVariable Long insectId
-    ) {
+            @PathVariable Long insectId) {
         InsectPhotoResponseDto photo = insectPhotoService.addPhoto(user.getId(), insectId, file);
         return ResponseEntity.status(HttpStatus.CREATED).body(photo);
     }

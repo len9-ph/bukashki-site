@@ -26,9 +26,13 @@ public class InsectEntity {
     public InsectEntity() {
     }
 
-    public InsectEntity(Long userId, Date createdAt, String name, String description) {
-        this.userId = userId;
-        this.createdAt = createdAt;
+    public InsectEntity(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public InsectEntity(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
