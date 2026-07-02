@@ -26,7 +26,7 @@ public class AccountContoller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserLoginDto loginDto) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody @Valid UserLoginDto loginDto) {
         LOG.debug("login(), loginDto = {}", loginDto);
 
         String token = accountService.login(loginDto.getLogin(), loginDto.getPassword());
