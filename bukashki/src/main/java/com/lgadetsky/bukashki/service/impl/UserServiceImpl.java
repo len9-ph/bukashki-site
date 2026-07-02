@@ -1,8 +1,8 @@
 package com.lgadetsky.bukashki.service.impl;
 
 import com.lgadetsky.bukashki.exception.UserNotFoundException;
-import com.lgadetsky.bukashki.model.dto.UserResponseDto;
 import com.lgadetsky.bukashki.model.dto.UserUpdateDto;
+import com.lgadetsky.bukashki.model.dto.response.UserResponseDto;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.repository.UserRepository;
 import com.lgadetsky.bukashki.service.StorageService;

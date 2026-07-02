@@ -1,4 +1,4 @@
-package com.lgadetsky.bukashki.model.dto;
+package com.lgadetsky.bukashki.model.dto.response;
 
 public class UserResponseDto {
     private Long userId;

@@ -1,8 +1,8 @@
 package com.lgadetsky.bukashki.controller;
 
-import com.lgadetsky.bukashki.model.dto.AvatarResponseDto;
-import com.lgadetsky.bukashki.model.dto.UserResponseDto;
 import com.lgadetsky.bukashki.model.dto.UserUpdateDto;
+import com.lgadetsky.bukashki.model.dto.response.AvatarResponseDto;
+import com.lgadetsky.bukashki.model.dto.response.UserResponseDto;
 import com.lgadetsky.bukashki.security.CustomUserDetails;
 import com.lgadetsky.bukashki.service.AvatarService;
 import com.lgadetsky.bukashki.service.UserService;

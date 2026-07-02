@@ -1,8 +1,7 @@
 package com.lgadetsky.bukashki.service;
 
-import com.lgadetsky.bukashki.model.dto.InsectPhotoResponseDto;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.lgadetsky.bukashki.model.dto.response.InsectPhotoResponseDto;
 import java.util.List;
 
 public interface InsectPhotoService {

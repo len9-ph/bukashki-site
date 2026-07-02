@@ -5,7 +5,7 @@ import com.lgadetsky.bukashki.exception.PhotoNotFoundException;
 import com.lgadetsky.bukashki.exception.StorageException;
 import com.lgadetsky.bukashki.exception.UnsupportedFileTypeException;
 import com.lgadetsky.bukashki.model.bean.InsectBean;
-import com.lgadetsky.bukashki.model.dto.InsectPhotoResponseDto;
+import com.lgadetsky.bukashki.model.dto.response.InsectPhotoResponseDto;
 import com.lgadetsky.bukashki.model.entity.InsectPhotoEntity;
 import com.lgadetsky.bukashki.repository.InsectPhotoRepository;
 import com.lgadetsky.bukashki.service.InsectPhotoService;

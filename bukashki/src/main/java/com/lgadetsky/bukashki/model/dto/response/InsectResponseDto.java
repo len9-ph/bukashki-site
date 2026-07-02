@@ -1,18 +1,18 @@
-package com.lgadetsky.bukashki.model.dto;
+package com.lgadetsky.bukashki.model.dto.response;
 
 import java.util.Date;
 
-public class InsectDto {
+public class InsectResponseDto {
     private Long id;
     private Long userId;
     private Date createdAt;
     private String name;
     private String description;
 
-    public InsectDto() {
+    public InsectResponseDto() {
     }
 
-    public InsectDto(Long id, Long userId, Date createdAt, String name, String description) {
+    public InsectResponseDto(Long id, Long userId, Date createdAt, String name, String description) {
         this.id = id;
         this.userId = userId;
         this.createdAt = createdAt;
@@ -62,7 +62,7 @@ public class InsectDto {
 
     @Override
     public String toString() {
-        return "InsectEntityDto [id=" + id + ", userId=" + userId + ", createdAt=" + createdAt + ", name=" + name
+        return "InsectResponseDto [id=" + id + ", userId=" + userId + ", createdAt=" + createdAt + ", name=" + name
                 + ", description=" + description + "]";
     }
 
