@@ -61,4 +61,10 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse("ACCESS_DENIED", e.getMessage()));
     }
 
+    @ExceptionHandler(PhotoNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePhotoNotFound(PhotoNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("PHOTO_NOT_FOUND", e.getMessage()));
+    }
+
 }

@@ -1,8 +1,16 @@
 package com.lgadetsky.bukashki.model.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "insect_photos")
 public class InsectPhotoEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(name = "insect_id", nullable = false)
     private Long insectId;
+    @Column(name = "object_key", nullable = false)
     private String objectKey;
 
     public InsectPhotoEntity() {
