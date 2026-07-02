@@ -42,10 +42,6 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public AvatarResponseDto uploadAvatar(Long userId, MultipartFile file) {
-        if (file.isEmpty()) {
-            return null;
-        }
-
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(String.valueOf(userId)));
 

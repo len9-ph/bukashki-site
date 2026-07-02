@@ -47,10 +47,6 @@ public class InsectPhotoServiceImpl implements InsectPhotoService {
 
     @Override
     public InsectPhotoResponseDto addPhoto(Long userId, Long insectId, MultipartFile file) {
-        if(file.isEmpty()) {
-            return null;
-        }
-
         InsectBean insectBean = insectService.getInsect(insectId);
         if (!insectBean.getUserId().equals(userId)) {
             throw new AccessDeniedException("not yours insect");
