@@ -61,4 +61,28 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse("ACCESS_DENIED", e.getMessage()));
     }
 
+    @ExceptionHandler(PhotoNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePhotoNotFound(PhotoNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("PHOTO_NOT_FOUND", e.getMessage()));
+    }
+
+    @ExceptionHandler(EmptyFileException.class)
+    public ResponseEntity<ErrorResponse> handleEmptyFile(EmptyFileException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("EMPTY_FILE", e.getMessage()));
+    }
+
+    @ExceptionHandler(UnsupportedFileTypeException.class)
+    public ResponseEntity<ErrorResponse> handleUnsupportedFileType(UnsupportedFileTypeException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("UNSUPPORTED_FILE_TYPE", e.getMessage()));
+    }
+
+    @ExceptionHandler(StorageException.class)
+    public ResponseEntity<ErrorResponse> handleStorage(StorageException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse("STORAGE_ERROR", e.getMessage()));
+    }
+
 }

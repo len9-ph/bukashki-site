@@ -24,8 +24,8 @@ public class UserEntity {
     @Column
     private String email;
 
-    @Column(name = "avatar_url")
-    private String avatarUrl;
+    @Column(name = "avatar_object_key")
+    private String avatarObjectKey;
 
     public UserEntity() {
     }
@@ -34,13 +34,6 @@ public class UserEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
-
-    public UserEntity(String firstName, String lastName, String email, String avatarUrl) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.avatarUrl = avatarUrl;
     }
 
     public Long getUserId() {
@@ -75,18 +68,18 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getAvatarObjectKey() {
+        return avatarObjectKey;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setAvatarObjectKey(String avatarObjectKey) {
+        this.avatarObjectKey = avatarObjectKey;
     }
 
     @Override
     public String toString() {
         return "UserEntity [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-                + email + ", avatarUrl=" + avatarUrl + "]";
+                + email + ", avatarObjectKey=" + avatarObjectKey + "]";
     }
 
 }
