@@ -4,7 +4,7 @@ import com.lgadetsky.bukashki.exception.EmptyFileException;
 import com.lgadetsky.bukashki.exception.StorageException;
 import com.lgadetsky.bukashki.exception.UnsupportedFileTypeException;
 import com.lgadetsky.bukashki.exception.UserNotFoundException;
-import com.lgadetsky.bukashki.model.dto.AvatarResponseDto;
+import com.lgadetsky.bukashki.model.dto.response.AvatarResponseDto;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
 import com.lgadetsky.bukashki.repository.UserRepository;
 import com.lgadetsky.bukashki.service.AvatarService;

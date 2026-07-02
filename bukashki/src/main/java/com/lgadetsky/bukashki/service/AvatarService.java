@@ -1,6 +1,6 @@
 package com.lgadetsky.bukashki.service;
 
-import com.lgadetsky.bukashki.model.dto.AvatarResponseDto;
+import com.lgadetsky.bukashki.model.dto.response.AvatarResponseDto;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AvatarService {

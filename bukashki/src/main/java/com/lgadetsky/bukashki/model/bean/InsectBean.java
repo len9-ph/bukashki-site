@@ -1,8 +1,7 @@
 package com.lgadetsky.bukashki.model.bean;
 
-import com.lgadetsky.bukashki.model.dto.InsectDto;
+import com.lgadetsky.bukashki.model.dto.response.InsectResponseDto;
 import com.lgadetsky.bukashki.model.entity.InsectEntity;
-
 import java.util.Date;
 import java.util.Objects;
 
@@ -82,7 +81,7 @@ public class InsectBean {
                 insectEntity.getDescription());
     }
 
-    public static InsectBean fromDto(InsectDto dto) {
+    public static InsectBean fromDto(InsectResponseDto dto) {
         Objects.requireNonNull(dto);
 
         return new InsectBean(dto.getId(),
@@ -92,10 +91,10 @@ public class InsectBean {
                 dto.getDescription());
     }
 
-    public static InsectDto toDto(InsectBean bean) {
+    public static InsectResponseDto toDto(InsectBean bean) {
         Objects.requireNonNull(bean);
 
-        return new InsectDto(bean.getId(),
+        return new InsectResponseDto(bean.getId(),
                 bean.getUserId(),
                 bean.getCreatedAt(),
                 bean.getName(),
