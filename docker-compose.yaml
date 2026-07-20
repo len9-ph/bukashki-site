@@ -12,10 +12,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    volumes:
-      - ./bukashki/sql/01.sql:/docker-entrypoint-initdb.d/01.sql
-      - ./bukashki/sql/02.sql:/docker-entrypoint-initdb.d/02.sql
-      - ./bukashki/sql/03.sql:/docker-entrypoint-initdb.d/03.sql
+
 
   minio:
     image: minio/minio
