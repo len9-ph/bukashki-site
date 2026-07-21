@@ -1,19 +1,21 @@
 package com.lgadetsky.bukashki.service;
 
-import com.lgadetsky.bukashki.model.bean.InsectBean;
 import java.util.List;
-import org.springframework.lang.NonNull;
+
+import com.lgadetsky.bukashki.model.dto.InsectCreateDto;
+import com.lgadetsky.bukashki.model.dto.InsectUpdateDto;
+import com.lgadetsky.bukashki.model.dto.response.InsectResponseDto;
 
 public interface InsectService {
-    InsectBean createInsect(Long userId, InsectBean insectBean);
+    InsectResponseDto createInsect(Long userId, InsectCreateDto insectCreateDto);
 
-    void updateInsect(Long userId, InsectBean insectBean);
+    void updateInsect(Long userId, InsectUpdateDto insectUpdateDto);
 
-    InsectBean getInsect(Long insectId);
+    InsectResponseDto getInsect(Long insectId);
 
-    List<InsectBean> getInsects();
+    List<InsectResponseDto> getInsects();
 
-    List<InsectBean> getInsectsForUserId(Long userId);
+    List<InsectResponseDto> getInsectsForUserId(Long userId);
 
-    void deleteInsect(Long userId, @NonNull Long insectId);
+    void deleteInsect(Long userId, Long insectId);
 }

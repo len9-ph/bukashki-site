@@ -1,6 +1,5 @@
 package com.lgadetsky.bukashki.controller;
 
-import com.lgadetsky.bukashki.model.bean.InsectBean;
 import com.lgadetsky.bukashki.model.dto.InsectCreateDto;
 import com.lgadetsky.bukashki.model.dto.InsectUpdateDto;
 import com.lgadetsky.bukashki.model.dto.response.InsectPhotoResponseDto;
@@ -43,19 +42,18 @@ public class InsectController {
 
     @GetMapping
     public ResponseEntity<List<InsectResponseDto>> getInsects() {
-        return ResponseEntity.ok(insectService.getInsects().stream().map(InsectBean::toDto).toList());
+        return ResponseEntity.ok(insectService.getInsects());
     }
 
     @GetMapping("/{insectId}")
     public ResponseEntity<InsectResponseDto> getInsect(@PathVariable Long insectId) {
-        return ResponseEntity.ok(InsectBean.toDto(insectService.getInsect(insectId)));
+        return ResponseEntity.ok(insectService.getInsect(insectId));
     }
 
     @PostMapping
     public ResponseEntity<Void> createInsect(@AuthenticationPrincipal CustomUserDetails user,
                                              @RequestBody() @Valid InsectCreateDto dto) {
-        insectService.createInsect(user.getId(),
-                new InsectBean(dto.getName(), dto.getDescription()));
+        insectService.createInsect(user.getId(), dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -63,17 +61,14 @@ public class InsectController {
     @PatchMapping
     public ResponseEntity<Void> updateInsect(@AuthenticationPrincipal CustomUserDetails user,
                                              @RequestBody @Valid InsectUpdateDto dto) {
-        insectService.updateInsect(user.getId(),
-                new InsectBean(dto.getInsectId(), dto.getName(), dto.getDescription()));
+        insectService.updateInsect(user.getId(), dto);
 
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/my")
     public ResponseEntity<List<InsectResponseDto>> getInsects(@AuthenticationPrincipal CustomUserDetails user) {
-        return ResponseEntity.ok(insectService.getInsectsForUserId(user.getId()).stream()
-                .map(InsectBean::toDto)
-                .toList());
+        return ResponseEntity.ok(insectService.getInsectsForUserId(user.getId()));
     }
 
     @DeleteMapping("/{insectId}")

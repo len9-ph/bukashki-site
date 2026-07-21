@@ -4,6 +4,7 @@ import com.lgadetsky.bukashki.exception.ResourceAlreadyExistsException;
 import com.lgadetsky.bukashki.model.dto.UserRegisterDto;
 import com.lgadetsky.bukashki.model.entity.UserCredentialsEntity;
 import com.lgadetsky.bukashki.model.entity.UserEntity;
+import com.lgadetsky.bukashki.model.mapper.UserMapper;
 import com.lgadetsky.bukashki.repository.UserCredentialsRepository;
 import com.lgadetsky.bukashki.repository.UserRepository;
 import com.lgadetsky.bukashki.security.CustomUserDetails;
@@ -28,14 +29,17 @@ public class AccountServiceImpl implements AccountService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final UserMapper userMapper;
+
     public AccountServiceImpl(AuthenticationManager authenticationManager,
             UserCredentialsRepository credentialsRepository, UserRepository userRepository,
-            JwtUtils jwtUtils, PasswordEncoder passwordEncoder) {
+            JwtUtils jwtUtils, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.credentialsRepository = credentialsRepository;
         this.userRepository = userRepository;
         this.jwtUtils = jwtUtils;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -45,9 +49,7 @@ public class AccountServiceImpl implements AccountService {
 
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
 
-        String token = jwtUtils.generateJwtToken(userDetails);
-
-        return token;
+        return jwtUtils.generateJwtToken(userDetails);
     }
 
     @Override
@@ -56,9 +58,7 @@ public class AccountServiceImpl implements AccountService {
             throw new ResourceAlreadyExistsException("login already in use");
         }
 
-        UserEntity newUser = userRepository.save(new UserEntity(userRegisterDto.getFirstName(),
-                userRegisterDto.getLastName(),
-                userRegisterDto.getEmail()));
+        UserEntity newUser = userRepository.save(userMapper.fromRegisterDto(userRegisterDto));
 
         String passwordHash = passwordEncoder.encode(userRegisterDto.getPassword());
 
