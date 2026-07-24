@@ -55,8 +55,7 @@ services:
       KAFKA_CONTROLLER_QUORUM_VOTERS: 0@kafka:9093
 
     volumes:
-      - volume:
-          kafka-data: /var/lib/kafka/data
+      - kafka-data: /var/lib/kafka/data
     healthcheck:
       test: [ "CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list" ]
       start_period: 30s
